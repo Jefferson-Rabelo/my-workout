@@ -14,28 +14,33 @@ O projeto foi desenvolvido como uma aplicação web instalável (PWA), com inter
 - **Detalhes dos exercícios:** consulte instruções, músculos trabalhados, equipamentos e sugestões de séries e repetições.
 - **Adição rápida:** adicione exercícios da biblioteca diretamente aos seus treinos.
 - **Backup e restauração:** exporte seus dados em JSON e restaure-os quando necessário.
+- **Temas personalizáveis:** escolha entre os temas verde-limão e rosa na seção Configurações. A preferência fica salva localmente neste navegador.
 - **PWA:** instale o aplicativo no computador ou celular.
 - **Funcionamento offline:** acesse o aplicativo mesmo sem conexão com a internet após o carregamento inicial.
 
 ## 🛠️ Tecnologias utilizadas
 
-| Tecnologia | Finalidade |
-|---|---|
-| React | Construção da interface |
-| TypeScript | Tipagem estática e segurança do código |
-| Vite | Ferramenta de desenvolvimento e build |
-| Tailwind CSS v4 | Estilização da interface |
-| Dexie.js | Gerenciamento do IndexedDB |
-| IndexedDB | Armazenamento local dos dados |
-| vite-plugin-pwa | Recursos de Progressive Web App |
-| Workbox | Cache e funcionamento offline |
-| Lucide | Ícones da interface |
+| Tecnologia      | Finalidade                             |
+| --------------- | -------------------------------------- |
+| React           | Construção da interface                |
+| TypeScript      | Tipagem estática e segurança do código |
+| Vite            | Ferramenta de desenvolvimento e build  |
+| Tailwind CSS v4 | Estilização da interface               |
+| Dexie.js        | Gerenciamento do IndexedDB             |
+| IndexedDB       | Armazenamento local dos dados          |
+| vite-plugin-pwa | Recursos de Progressive Web App        |
+| Workbox         | Cache e funcionamento offline          |
+| Lucide          | Ícones da interface                    |
 
 ## 🎨 Interface
 
-O My Workout utiliza uma identidade visual moderna, com tema escuro, tons de grafite e destaques em verde-limão.
+O My Workout utiliza uma identidade visual moderna, com tema escuro, tons de grafite e duas opções de cores de destaque:
+
+- **Verde-limão:** tema original do aplicativo.
+- **Rosa:** alternativa personalizável.
 
 A interface foi desenvolvida com foco em:
+
 - Design responsivo.
 - Experiência mobile-first.
 - Navegação simples e intuitiva.
@@ -47,6 +52,7 @@ A interface foi desenvolvida com foco em:
 Os dados dos treinos são armazenados localmente no navegador, utilizando IndexedDB com Dexie.js.
 
 O projeto não utiliza:
+
 - Backend.
 - Banco de dados remoto.
 - Sistema de login.
@@ -132,6 +138,7 @@ Cada atualização enviada para a branch `main` pode iniciar automaticamente uma
 O My Workout é um projeto em constante evolução. Novas funcionalidades e melhorias poderão ser implementadas conforme a necessidade de utilização.
 
 Algumas possibilidades:
+
 - Imagens ilustrativas dos exercícios.
 - Melhorias na biblioteca de exercícios.
 - Novos recursos de acompanhamento dos treinos.
@@ -145,4 +152,4 @@ Projeto criado com o objetivo de aplicar conhecimentos em desenvolvimento web, e
 
 ---
 
-**My Workout — Organize seus treinos. Evolua no seu ritmo.** 💚
+**My Workout — Organize seus treinos. Evolua no seu ritmo.** 💚💗

@@ -1,6 +1,6 @@
 ﻿import type { ReactNode, SVGProps } from 'react'
 
-export type IconName = 'grid' | 'dumbbell' | 'calendar' | 'settings' | 'plus' | 'arrow' | 'arrow-left' | 'activity' | 'clock' | 'more' | 'spark' | 'menu' | 'close' | 'edit' | 'trash'
+export type IconName = 'grid' | 'dumbbell' | 'calendar' | 'settings' | 'plus' | 'arrow' | 'arrow-left' | 'activity' | 'clock' | 'more' | 'spark' | 'menu' | 'close' | 'edit' | 'trash' | 'library'
 
 type IconProps = SVGProps<SVGSVGElement> & { name: IconName }
 
@@ -20,6 +20,7 @@ const paths: Record<IconName, ReactNode> = {
   close: <path d="m18 6-12 12M6 6l12 12" />,
   edit: <><path d="m15 5 4 4M4 20l4-.8L19 8a2.8 2.8 0 0 0-4-4L4 15v5Z" /></>,
   trash: <><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6" /></>,
+  library: <><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21V5.5Z" /><path d="M4 5.5v15.2A2.5 2.5 0 0 1 6.5 19H20M8 7h8m-8 4h8" /></>,
 }
 
 export function Icon({ name, ...props }: IconProps) {

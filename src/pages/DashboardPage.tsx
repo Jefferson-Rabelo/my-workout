@@ -9,11 +9,14 @@ import { WorkoutFormModal } from '../components/ui/WorkoutFormModal'
 import { useWorkouts } from '../hooks/useWorkouts'
 import { WorkoutDetailPage } from './WorkoutDetailPage'
 import { SettingsPage } from './SettingsPage'
+import { ExerciseLibraryPage } from './ExerciseLibraryPage'
 import type { Workout } from '../types/workout'
 
 export function DashboardPage() {
   const { workouts, loading, error, createWorkout, renameWorkout, deleteWorkout, addExercise, updateExercise, deleteExercise } = useWorkouts()
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [libraryOpen, setLibraryOpen] = useState(false)
+  const [dashboardDestination, setDashboardDestination] = useState<DashboardDestination>('overview')
   const [modalWorkout, setModalWorkout] = useState<Workout | null>(null)
   const [selectedWorkoutId, setSelectedWorkoutId] = useState<number | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
@@ -21,12 +24,36 @@ export function DashboardPage() {
   const [actionError, setActionError] = useState<string | null>(null)
   const exerciseCount = workouts.reduce((total, workout) => total + workout.exercises.length, 0)
   const selectedWorkout = workouts.find((workout) => workout.id === selectedWorkoutId)
+  const libraryView = (
+    <div className={libraryOpen ? '' : 'hidden'}>
+      <ExerciseLibraryPage
+        workouts={workouts}
+        workoutsLoading={loading}
+        onAddExercise={addExercise}
+        onSettingsClick={openSettings}
+        onNavigateDashboard={navigateToDashboard}
+      />
+    </div>
+  )
 
   function navigateToDashboard(destination: DashboardDestination) {
     setSettingsOpen(false)
     setSelectedWorkoutId(null)
+    if (destination === 'library') {
+      setLibraryOpen(true)
+      window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+      return
+    }
+    setLibraryOpen(false)
+    setDashboardDestination(destination)
     const targetId = destination === 'overview' ? 'inicio' : 'treinos'
     window.requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+  }
+
+  function openSettings() {
+    setLibraryOpen(false)
+    setSelectedWorkoutId(null)
+    setSettingsOpen(true)
   }
 
   function openCreateModal() {
@@ -68,23 +95,28 @@ export function DashboardPage() {
     }
   }
 
-  if (settingsOpen) return <SettingsPage workoutCount={workouts.length} onBack={() => navigateToDashboard('overview')} onSettingsClick={() => setSettingsOpen(true)} onNavigateDashboard={navigateToDashboard} />
+  if (settingsOpen) return <>{libraryView}<SettingsPage workoutCount={workouts.length} onBack={() => navigateToDashboard('overview')} onSettingsClick={openSettings} onNavigateDashboard={navigateToDashboard} /></>
+
+  if (libraryOpen) return <>{libraryView}</>
 
   if (selectedWorkoutId !== null && selectedWorkout) {
-    return <WorkoutDetailPage
+    return <>{libraryView}<WorkoutDetailPage
       workout={selectedWorkout}
       workoutCount={workouts.length}
       onBack={() => navigateToDashboard('workouts')}
-      onSettingsClick={() => setSettingsOpen(true)}
+      onSettingsClick={openSettings}
       onNavigateDashboard={navigateToDashboard}
       onAddExercise={(exercise) => selectedWorkout.id === undefined ? Promise.reject(new Error('O treino não foi encontrado.')) : addExercise(selectedWorkout.id, exercise)}
       onUpdateExercise={(exerciseId, exercise) => selectedWorkout.id === undefined ? Promise.reject(new Error('O treino não foi encontrado.')) : updateExercise(selectedWorkout.id, exerciseId, exercise)}
       onDeleteExercise={(exerciseId) => selectedWorkout.id === undefined ? Promise.reject(new Error('O treino não foi encontrado.')) : deleteExercise(selectedWorkout.id, exerciseId)}
     />
+    </>
   }
 
   return (
-    <DashboardLayout workoutCount={workouts.length} onSettingsClick={() => setSettingsOpen(true)} onNavigateDashboard={navigateToDashboard}>
+    <>
+    {libraryView}
+    <DashboardLayout workoutCount={workouts.length} activeSection={dashboardDestination} onSettingsClick={openSettings} onNavigateDashboard={navigateToDashboard}>
       <header className="flex items-center justify-between gap-4 border-b border-zinc-800/70 pb-5 lg:hidden">
         <a href="#inicio" className="flex items-center gap-2.5"><span className="flex size-9 items-center justify-center rounded-xl bg-lime-400 text-zinc-950"><Icon name="dumbbell" className="size-[18px]" /></span><span className="text-sm font-bold text-white">my<span className="text-lime-400">workout</span></span></a>
         <span className="flex size-10 items-center justify-center rounded-xl border border-zinc-800 text-zinc-400"><Icon name="activity" className="size-5" /></span>
@@ -120,5 +152,6 @@ export function DashboardPage() {
       </main>
       {modalOpen && <WorkoutFormModal workout={modalWorkout} saving={saving} onClose={() => { setModalOpen(false); setModalWorkout(null) }} onSubmit={saveWorkout} />}
     </DashboardLayout>
+    </>
   )
 }

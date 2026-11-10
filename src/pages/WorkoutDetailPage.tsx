@@ -72,7 +72,7 @@ export function WorkoutDetailPage({ workout, workoutCount, onBack, onSettingsCli
   }
 
   return (
-    <DashboardLayout workoutCount={workoutCount} onSettingsClick={onSettingsClick} onNavigateDashboard={onNavigateDashboard}>
+    <DashboardLayout workoutCount={workoutCount} activeSection="workouts" onSettingsClick={onSettingsClick} onNavigateDashboard={onNavigateDashboard}>
       <main className="pt-2 sm:pt-4">
         <button type="button" onClick={onBack} className="inline-flex min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-medium text-zinc-400 transition hover:bg-zinc-900 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400"><Icon name="arrow-left" className="size-[18px]" />Voltar aos treinos</button>
         <header className="mt-7 flex flex-col justify-between gap-5 border-b border-zinc-800/80 pb-7 sm:flex-row sm:items-end">

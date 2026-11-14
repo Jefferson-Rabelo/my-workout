@@ -118,14 +118,14 @@ export function DashboardPage() {
     {libraryView}
     <DashboardLayout workoutCount={workouts.length} activeSection={dashboardDestination} onSettingsClick={openSettings} onNavigateDashboard={navigateToDashboard}>
       <header className="flex items-center justify-between gap-4 border-b border-zinc-800/70 pb-5 lg:hidden">
-        <a href="#inicio" className="flex items-center gap-2.5"><span className="flex size-9 items-center justify-center rounded-xl bg-lime-400 text-zinc-950"><Icon name="dumbbell" className="size-[18px]" /></span><span className="text-sm font-bold text-white">my<span className="text-lime-400">workout</span></span></a>
+        <a href="#inicio" className="flex items-center gap-2.5"><span className="flex size-9 items-center justify-center rounded-xl bg-[var(--accent)] text-[var(--accent-foreground)]"><Icon name="dumbbell" className="size-[18px]" /></span><span className="text-sm font-bold text-white">my<span className="text-[var(--accent)]">workout</span></span></a>
         <span className="flex size-10 items-center justify-center rounded-xl border border-zinc-800 text-zinc-400"><Icon name="activity" className="size-5" /></span>
       </header>
 
       <main id="inicio" className="pt-8 sm:pt-10 lg:pt-2">
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-lime-400/15 bg-lime-400/[0.06] px-3 py-1.5 text-[11px] font-medium text-lime-300"><span className="size-1.5 rounded-full bg-lime-400" />Seu espaço, seu ritmo</div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-soft)] px-3 py-1.5 text-[11px] font-medium text-[var(--accent-hover)]"><span className="size-1.5 rounded-full bg-[var(--accent)]" />Seu espaço, seu ritmo</div>
             <h1 className="text-[28px] font-semibold tracking-tight text-white sm:text-[34px]">Meu espaço de treino</h1>
             <p className="mt-2 text-sm text-zinc-500 sm:text-[15px]">Organize seus treinos em um só lugar.</p>
           </div>
@@ -148,7 +148,7 @@ export function DashboardPage() {
             {loading ? <div role="status" className="flex min-h-[300px] items-center justify-center text-sm text-zinc-500">Carregando treinos…</div> : workouts.length === 0 ? <EmptyState onCreate={openCreateModal} /> : <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5 xl:grid-cols-3">{workouts.map((workout) => <WorkoutCard key={workout.id} workout={workout} onOpen={(item) => setSelectedWorkoutId(item.id ?? null)} onEdit={openEditModal} onDelete={confirmDelete} />)}</div>}
           </div>
         </section>
-        <footer className="mt-8 hidden items-center justify-between border-t border-zinc-800/60 pt-5 text-[11px] text-zinc-700 lg:flex"><span>MY WORKOUT <span className="mx-1.5">·</span> CONSISTÊNCIA EM MOVIMENTO</span><span className="flex items-center gap-1.5"><Icon name="activity" className="size-3.5 text-lime-400/70" />Um passo de cada vez</span></footer>
+        <footer className="mt-8 hidden items-center justify-between border-t border-zinc-800/60 pt-5 text-[11px] text-zinc-700 lg:flex"><span>MY WORKOUT <span className="mx-1.5">·</span> CONSISTÊNCIA EM MOVIMENTO</span><span className="flex items-center gap-1.5"><Icon name="activity" className="size-3.5 text-[var(--accent)]/70" />Um passo de cada vez</span></footer>
       </main>
       {modalOpen && <WorkoutFormModal workout={modalWorkout} saving={saving} onClose={() => { setModalOpen(false); setModalWorkout(null) }} onSubmit={saveWorkout} />}
     </DashboardLayout>

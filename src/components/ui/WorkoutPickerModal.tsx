@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Workout } from '../../types/workout'
 import { Icon } from './Icon'
 
@@ -85,11 +85,11 @@ export function WorkoutPickerModal({ exerciseName, workouts, loading, onClose, o
       <section ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="workout-picker-title" tabIndex={-1} className="w-full max-w-lg rounded-t-3xl border border-zinc-800 bg-[#18181b] p-5 shadow-2xl sm:rounded-3xl sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-lime-300">Adicionar exercício</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[var(--accent-hover)]">Adicionar exercício</p>
             <h2 id="workout-picker-title" className="mt-2 text-xl font-semibold text-white">Escolha um treino</h2>
             <p className="mt-1 line-clamp-2 text-sm text-zinc-500">{exerciseName}</p>
           </div>
-          <button ref={closeButtonRef} type="button" onClick={onClose} disabled={saving} aria-label="Fechar seleção de treino" className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-zinc-700 text-zinc-400 transition hover:text-white disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-lime-400">
+          <button ref={closeButtonRef} type="button" onClick={onClose} disabled={saving} aria-label="Fechar seleção de treino" className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-zinc-700 text-zinc-400 transition hover:text-white disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-[var(--accent)]">
             <Icon name="close" className="size-5" />
           </button>
         </div>
@@ -104,7 +104,7 @@ export function WorkoutPickerModal({ exerciseName, workouts, loading, onClose, o
           <div className="mt-5 max-h-[42dvh] space-y-2 overflow-y-auto pr-1">
             {availableWorkouts.map((workout) => {
               const selected = selectedWorkoutId === workout.id
-              return <button key={workout.id} type="button" onClick={() => { setSelectedWorkoutId(workout.id); setError(null) }} aria-pressed={selected} className={`flex min-h-14 w-full items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400 ${selected ? 'border-lime-400/50 bg-lime-400/[0.07]' : 'border-zinc-800 bg-zinc-900/70 hover:border-zinc-700'}`}>
+              return <button key={workout.id} type="button" onClick={() => { setSelectedWorkoutId(workout.id); setError(null) }} aria-pressed={selected} className={`flex min-h-14 w-full items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${selected ? 'border-[var(--accent)] bg-[var(--accent-soft)]' : 'border-zinc-800 bg-zinc-900/70 hover:border-zinc-700'}`}>
                 <span className={`min-w-0 truncate text-sm font-medium ${selected ? 'text-white' : 'text-zinc-300'}`}>{workout.name}</span>
                 <span className="shrink-0 text-xs text-zinc-500">{workout.exercises.length} {workout.exercises.length === 1 ? 'exercício' : 'exercícios'}</span>
               </button>
@@ -113,8 +113,8 @@ export function WorkoutPickerModal({ exerciseName, workouts, loading, onClose, o
         )}
         {error && <p role="alert" className="mt-4 rounded-xl border border-red-400/20 bg-red-400/[0.06] px-4 py-3 text-sm text-red-300">{error}</p>}
         <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-          <button type="button" onClick={onClose} disabled={saving} className="min-h-12 rounded-xl border border-zinc-700 px-5 text-sm font-semibold text-zinc-300 transition hover:bg-zinc-800 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-lime-400">Cancelar</button>
-          {availableWorkouts.length > 0 && !loading && <button type="button" onClick={() => void handleConfirm()} disabled={selectedWorkoutId === null || saving} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-lime-400 px-5 text-sm font-semibold text-zinc-950 transition hover:bg-lime-300 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400">{saving ? 'Adicionando...' : 'Adicionar ao treino'}</button>}
+          <button type="button" onClick={onClose} disabled={saving} className="min-h-12 rounded-xl border border-zinc-700 px-5 text-sm font-semibold text-zinc-300 transition hover:bg-zinc-800 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-[var(--accent)]">Cancelar</button>
+          {availableWorkouts.length > 0 && !loading && <button type="button" onClick={() => void handleConfirm()} disabled={selectedWorkoutId === null || saving} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-5 text-sm font-semibold text-[var(--accent-foreground)] transition hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]">{saving ? 'Adicionando...' : 'Adicionar ao treino'}</button>}
         </div>
       </section>
     </div>

@@ -11,11 +11,11 @@ export function ExerciseLibraryCard({ exercise, onSelect }: ExerciseLibraryCardP
     <button
       type="button"
       onClick={() => onSelect(exercise)}
-      className="group flex min-h-60 flex-col rounded-2xl border border-zinc-800 bg-[#18181b] p-5 text-left transition hover:border-lime-400/40 hover:bg-zinc-800/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400"
+      className="group flex min-h-60 flex-col rounded-2xl border border-zinc-800 bg-[#18181b] p-5 text-left transition hover:border-[var(--accent-border)] hover:bg-zinc-800/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
       aria-label={`Ver detalhes de ${exercise.name}`}
     >
       <div className="flex w-full items-start justify-between gap-3">
-        <span className="inline-flex rounded-lg border border-lime-400/15 bg-lime-400/[0.07] px-2.5 py-1 text-xs font-medium text-lime-300">
+        <span className="inline-flex rounded-lg border border-[var(--accent-border)] bg-[var(--accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--accent-hover)]">
           {MUSCLE_GROUP_NAMES[exercise.primaryMuscleGroup]}
         </span>
         <span className="shrink-0 rounded-lg border border-zinc-700/80 px-2.5 py-1 text-[11px] text-zinc-400">
@@ -23,7 +23,7 @@ export function ExerciseLibraryCard({ exercise, onSelect }: ExerciseLibraryCardP
         </span>
       </div>
 
-      <h2 className="mt-5 text-lg font-semibold tracking-tight text-white group-hover:text-lime-100">{exercise.name}</h2>
+      <h2 className="mt-5 text-lg font-semibold tracking-tight text-white group-hover:text-[var(--accent-hover)]">{exercise.name}</h2>
 
       <div className="mt-3 flex flex-wrap gap-1.5">
         {exercise.secondaryMuscleGroups.map((group) => (
@@ -39,7 +39,7 @@ export function ExerciseLibraryCard({ exercise, onSelect }: ExerciseLibraryCardP
           <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-600">Equipamentos</p>
           <p className="mt-1 line-clamp-1 text-xs text-zinc-400">{exercise.equipment.join(' · ')}</p>
         </div>
-        <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-zinc-700 text-zinc-500 transition group-hover:border-lime-400/30 group-hover:text-lime-300" aria-hidden="true">
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-zinc-700 text-zinc-500 transition group-hover:border-[var(--accent-border)] group-hover:text-[var(--accent-hover)]" aria-hidden="true">
           <Icon name="arrow" className="size-4" />
         </span>
       </div>

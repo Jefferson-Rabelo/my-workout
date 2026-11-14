@@ -12,7 +12,7 @@ export function ExerciseCard({ exercise, index, onEdit, onDelete }: ExerciseCard
   return (
     <article className="rounded-2xl border border-zinc-800 bg-zinc-900/80 p-4 sm:p-5">
       <div className="flex items-start gap-3">
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-zinc-800 text-sm font-semibold tabular-nums text-lime-300">{String(index + 1).padStart(2, '0')}</span>
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-zinc-800 text-sm font-semibold tabular-nums text-[var(--accent-hover)]">{String(index + 1).padStart(2, '0')}</span>
         <div className="min-w-0 flex-1 pt-0.5"><h3 className="break-words text-base font-semibold text-zinc-100">{exercise.name}</h3><p className="mt-1.5 text-sm text-zinc-400">{exercise.sets} {exercise.sets === 1 ? 'série' : 'séries'} <span className="mx-1 text-zinc-700">·</span> {String(exercise.reps)} repetições{exercise.weight !== undefined && <><span className="mx-1 text-zinc-700">·</span>{exercise.weight} kg</>}</p></div>
         <div className="flex shrink-0 gap-1"><button type="button" onClick={onEdit} aria-label={`Editar ${exercise.name}`} className="flex size-10 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-800 hover:text-zinc-100"><Icon name="edit" className="size-[17px]" /></button><button type="button" onClick={onDelete} aria-label={`Excluir ${exercise.name}`} className="flex size-10 items-center justify-center rounded-lg text-zinc-500 hover:bg-red-400/10 hover:text-red-400"><Icon name="trash" className="size-[17px]" /></button></div>
       </div>

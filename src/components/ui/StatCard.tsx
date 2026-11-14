@@ -11,7 +11,7 @@ export function StatCard({ label, value, detail, icon }: StatCardProps) {
   return (
     <article className="rounded-2xl border border-zinc-800/90 bg-zinc-900/80 p-5 sm:p-6">
       <div className="flex items-start justify-between">
-        <div className="flex size-11 items-center justify-center rounded-xl bg-lime-400/10 text-lime-300"><Icon name={icon} className="size-5" /></div>
+        <div className="flex size-11 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent-hover)]"><Icon name={icon} className="size-5" /></div>
         <span className="rounded-full border border-zinc-800 px-2.5 py-1 text-[11px] font-medium text-zinc-500">Visão geral</span>
       </div>
       <p className="mt-6 text-sm text-zinc-400">{label}</p>

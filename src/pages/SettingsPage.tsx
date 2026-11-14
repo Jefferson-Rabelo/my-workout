@@ -1,7 +1,8 @@
-﻿import { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { DashboardLayout, type DashboardDestination } from '../components/layout/DashboardLayout'
 import { Button } from '../components/ui/Button'
 import { Icon } from '../components/ui/Icon'
+import { useTheme } from '../contexts/ThemeContext'
 import { LAST_BACKUP_STORAGE_KEY, createWorkoutBackup, parseWorkoutBackup, replaceWorkoutsFromBackup } from '../utils/backup'
 
 type SettingsPageProps = {
@@ -24,7 +25,13 @@ function formatDate(value: string | null) {
   return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(value))
 }
 
+const themeOptions = [
+  { value: 'lime', label: 'Verde-limão', color: '#A3E635' },
+  { value: 'pink', label: 'Rosa', color: '#F472B6' },
+] as const
+
 export function SettingsPage({ workoutCount, onBack, onSettingsClick, onNavigateDashboard }: SettingsPageProps) {
+  const { theme, setTheme } = useTheme()
   const fileInput = useRef<HTMLInputElement>(null)
   const [lastBackup, setLastBackup] = useState(readLastBackup)
   const [busy, setBusy] = useState(false)
@@ -78,12 +85,49 @@ export function SettingsPage({ workoutCount, onBack, onSettingsClick, onNavigate
   return (
     <DashboardLayout workoutCount={workoutCount} activeSection="settings" onSettingsClick={onSettingsClick} onNavigateDashboard={onNavigateDashboard}>
       <main className="pt-2 sm:pt-4">
-        <button type="button" onClick={onBack} className="inline-flex min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-medium text-zinc-400 transition hover:bg-zinc-900 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400"><Icon name="arrow-left" className="size-[18px]" />Voltar ao dashboard</button>
-        <header className="mt-7 border-b border-zinc-800/80 pb-7"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-lime-300">Preferências</p><h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Configurações</h1><p className="mt-2 text-sm text-zinc-500">Gerencie uma cópia local dos seus treinos.</p></header>
+        <button type="button" onClick={onBack} className="inline-flex min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-medium text-zinc-400 transition hover:bg-zinc-900 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"><Icon name="arrow-left" className="size-[18px]" />Voltar ao dashboard</button>
+        <header className="mt-7 border-b border-zinc-800/80 pb-7"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent-hover)]">Preferências</p><h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Configurações</h1><p className="mt-2 text-sm text-zinc-500">Gerencie uma cópia local dos seus treinos.</p></header>
+
+        <section className="mt-7 max-w-3xl" aria-labelledby="appearance-title">
+          <div className="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5 sm:p-7">
+            <h2 id="appearance-title" className="text-lg font-semibold text-white">Aparência</h2>
+            <p id="theme-description" className="mt-1 text-sm leading-6 text-zinc-500">Escolha a cor de destaque do aplicativo.</p>
+            <fieldset aria-describedby="theme-description" className="mt-5">
+              <legend className="sr-only">Tema de destaque</legend>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {themeOptions.map(({ value, label, color }) => (
+                  <div key={value}>
+                    <input
+                      id={`theme-${value}`}
+                      className="peer sr-only"
+                      type="radio"
+                      name="theme"
+                      value={value}
+                      checked={theme === value}
+                      onChange={() => setTheme(value)}
+                    />
+                    <label
+                      htmlFor={`theme-${value}`}
+                      className="flex min-h-16 cursor-pointer items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-950/70 p-4 transition hover:border-zinc-700 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--accent)]"
+                      style={{ borderColor: theme === value ? color : undefined, outlineColor: color }}
+                    >
+                      <span aria-hidden="true" className="size-8 shrink-0 rounded-full border border-white/10" style={{ backgroundColor: color }} />
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-medium text-zinc-100">{label}</span>
+                        <span className="mt-0.5 block text-xs text-zinc-500">{color}</span>
+                      </span>
+                      {theme === value && <span className="shrink-0 text-xs font-medium text-zinc-300">Selecionado</span>}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+          </div>
+        </section>
 
         <section className="mt-7 max-w-3xl" aria-labelledby="backup-title">
           <div className="rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-5 sm:p-7">
-            <div className="flex items-start gap-4"><span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-lime-400/10 text-lime-300"><Icon name="arrow" className="size-5" /></span><div><h2 id="backup-title" className="text-lg font-semibold text-white">Backup e restauração</h2><p className="mt-1 text-sm leading-6 text-zinc-500">Exporte seus treinos em um arquivo JSON ou restaure uma cópia salva anteriormente.</p></div></div>
+            <div className="flex items-start gap-4"><span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-soft)] text-[var(--accent-hover)]"><Icon name="arrow" className="size-5" /></span><div><h2 id="backup-title" className="text-lg font-semibold text-white">Backup e restauração</h2><p className="mt-1 text-sm leading-6 text-zinc-500">Exporte seus treinos em um arquivo JSON ou restaure uma cópia salva anteriormente.</p></div></div>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <Button type="button" icon="arrow" onClick={() => void exportBackup()} disabled={busy} className="w-full">{busy ? 'Aguarde…' : 'Exportar backup'}</Button>
               <Button type="button" variant="secondary" icon="plus" onClick={() => fileInput.current?.click()} disabled={busy} className="w-full">Importar backup</Button>
@@ -91,7 +135,7 @@ export function SettingsPage({ workoutCount, onBack, onSettingsClick, onNavigate
             </div>
             <p className="mt-4 text-xs text-zinc-600">A restauração substitui todos os treinos atuais após confirmação.</p>
             <div className="mt-5 flex items-center gap-2 border-t border-zinc-800 pt-4 text-xs text-zinc-500"><Icon name="clock" className="size-4 text-zinc-600" />{formatDate(lastBackup) ? <>Último backup gerado neste navegador: <time dateTime={lastBackup ?? undefined}>{formatDate(lastBackup)}</time></> : 'Nenhum backup exportado neste navegador.'}</div>
-            {message && <p role={message.type === 'error' ? 'alert' : 'status'} className={`mt-4 rounded-xl border px-4 py-3 text-sm ${message.type === 'success' ? 'border-lime-400/20 bg-lime-400/[0.06] text-lime-200' : 'border-red-400/20 bg-red-400/[0.06] text-red-300'}`}>{message.text}</p>}
+            {message && <p role={message.type === 'error' ? 'alert' : 'status'} className={`mt-4 rounded-xl border px-4 py-3 text-sm ${message.type === 'success' ? 'border-[var(--accent-border)] bg-[var(--accent-soft)] text-[var(--accent-hover)]' : 'border-red-400/20 bg-red-400/[0.06] text-red-300'}`}>{message.text}</p>}
           </div>
         </section>
       </main>

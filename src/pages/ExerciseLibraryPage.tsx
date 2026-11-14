@@ -10,7 +10,7 @@ const muscleGroups = Object.keys(MUSCLE_GROUP_NAMES) as MuscleGroup[]
 
 type CategoryFilter = ExerciseCategory | 'all'
 
-const selectClassName = 'min-h-12 w-full appearance-none rounded-xl border border-zinc-800 bg-[#18181b] px-4 pr-10 text-sm text-zinc-200 outline-none transition focus:border-lime-400/50 focus:ring-2 focus:ring-lime-400/10'
+const selectClassName = 'min-h-12 w-full appearance-none rounded-xl border border-zinc-800 bg-[#18181b] px-4 pr-10 text-sm text-zinc-200 outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent-soft)]'
 
 type ExerciseLibraryPageProps = {
   workouts: Workout[]
@@ -50,8 +50,8 @@ export function ExerciseLibraryPage({ workouts, workoutsLoading, onAddExercise, 
     <main className="min-h-screen bg-[#09090b] px-4 pb-12 pt-7 text-zinc-100 sm:px-7 sm:pt-10 lg:px-12 lg:pt-12">
       <div className="mx-auto w-full max-w-[1180px]">
         <header className="border-b border-zinc-800/70 pb-7 sm:pb-9">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-lime-400/15 bg-lime-400/[0.06] px-3 py-1.5 text-[11px] font-medium text-lime-300">
-            <span className="size-1.5 rounded-full bg-lime-400" />Catálogo de movimentos
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-soft)] px-3 py-1.5 text-[11px] font-medium text-[var(--accent-hover)]">
+            <span className="size-1.5 rounded-full bg-[var(--accent)]" />Catálogo de movimentos
           </div>
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
@@ -74,7 +74,7 @@ export function ExerciseLibraryPage({ workouts, workoutsLoading, onAddExercise, 
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Ex.: supino, agachamento..."
-              className="min-h-12 w-full rounded-xl border border-zinc-800 bg-[#18181b] pl-11 pr-4 text-sm text-white outline-none placeholder:text-zinc-600 transition focus:border-lime-400/50 focus:ring-2 focus:ring-lime-400/10"
+              className="min-h-12 w-full rounded-xl border border-zinc-800 bg-[#18181b] pl-11 pr-4 text-sm text-white outline-none placeholder:text-zinc-600 transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent-soft)]"
             />
           </div>
 
@@ -107,7 +107,7 @@ export function ExerciseLibraryPage({ workouts, workoutsLoading, onAddExercise, 
           <div className="mb-4 flex items-center justify-between gap-3">
             <p className="text-sm text-zinc-500"><span className="font-semibold text-zinc-300">{filteredExercises.length}</span> {filteredExercises.length === 1 ? 'exercício encontrado' : 'exercícios encontrados'}</p>
             {(search || muscleGroup !== 'all' || category !== 'all') && (
-              <button type="button" onClick={resetFilters} className="min-h-10 rounded-lg px-3 text-xs font-medium text-lime-300 transition hover:bg-lime-400/10 focus-visible:outline-2 focus-visible:outline-lime-400">Limpar filtros</button>
+              <button type="button" onClick={resetFilters} className="min-h-10 rounded-lg px-3 text-xs font-medium text-[var(--accent-hover)] transition hover:bg-[var(--accent-soft)] focus-visible:outline-2 focus-visible:outline-[var(--accent)]">Limpar filtros</button>
             )}
           </div>
 
@@ -120,7 +120,7 @@ export function ExerciseLibraryPage({ workouts, workoutsLoading, onAddExercise, 
               <span className="flex size-12 items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-900 text-zinc-500" aria-hidden="true">⌕</span>
               <h2 className="mt-4 text-base font-semibold text-white">Nenhum exercício encontrado</h2>
               <p className="mt-2 max-w-sm text-sm leading-6 text-zinc-500">Tente outro termo ou ajuste os filtros para explorar o catálogo.</p>
-              <button type="button" onClick={resetFilters} className="mt-4 min-h-11 rounded-xl px-4 text-sm font-semibold text-lime-300 transition hover:bg-lime-400/10 focus-visible:outline-2 focus-visible:outline-lime-400">Limpar busca e filtros</button>
+              <button type="button" onClick={resetFilters} className="mt-4 min-h-11 rounded-xl px-4 text-sm font-semibold text-[var(--accent-hover)] transition hover:bg-[var(--accent-soft)] focus-visible:outline-2 focus-visible:outline-[var(--accent)]">Limpar busca e filtros</button>
             </div>
           )}
         </section>

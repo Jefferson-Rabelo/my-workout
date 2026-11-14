@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MUSCLE_GROUP_NAMES, type CatalogExercise } from '../../types/exerciseCatalog'
 import { Icon } from './Icon'
 import { WorkoutPickerModal } from './WorkoutPickerModal'
@@ -95,12 +95,12 @@ export function ExerciseLibraryDetails({ exercise, workouts, workoutsLoading, on
       >
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <span className="inline-flex rounded-lg border border-lime-400/15 bg-lime-400/[0.07] px-2.5 py-1 text-xs font-medium text-lime-300">
+            <span className="inline-flex rounded-lg border border-[var(--accent-border)] bg-[var(--accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--accent-hover)]">
               {exercise.category === 'compound' ? 'Exercício composto' : 'Exercício de isolamento'}
             </span>
             <h2 id="exercise-details-title" className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">{exercise.name}</h2>
           </div>
-          <button ref={closeButtonRef} type="button" onClick={onClose} aria-label="Fechar detalhes" className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-zinc-700 text-zinc-400 transition hover:border-zinc-600 hover:text-white focus-visible:outline-2 focus-visible:outline-lime-400">
+          <button ref={closeButtonRef} type="button" onClick={onClose} aria-label="Fechar detalhes" className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-zinc-700 text-zinc-400 transition hover:border-zinc-600 hover:text-white focus-visible:outline-2 focus-visible:outline-[var(--accent)]">
             <Icon name="close" className="size-5" />
           </button>
         </div>
@@ -120,7 +120,7 @@ export function ExerciseLibraryDetails({ exercise, workouts, workoutsLoading, on
           <h3 className="text-sm font-semibold text-white">Músculos envolvidos</h3>
           <div className="mt-3 flex flex-wrap gap-2">
             {muscleGroups.map((group, index) => (
-              <span key={group} className={`rounded-lg px-3 py-1.5 text-xs ${index === 0 ? 'border border-lime-400/20 bg-lime-400/[0.08] text-lime-300' : 'border border-zinc-800 bg-zinc-900 text-zinc-400'}`}>
+              <span key={group} className={`rounded-lg px-3 py-1.5 text-xs ${index === 0 ? 'border border-[var(--accent-border)] bg-[var(--accent-soft)] text-[var(--accent-hover)]' : 'border border-zinc-800 bg-zinc-900 text-zinc-400'}`}>
                 {MUSCLE_GROUP_NAMES[group]}{index === 0 ? ' · principal' : ''}
               </span>
             ))}
@@ -139,16 +139,16 @@ export function ExerciseLibraryDetails({ exercise, workouts, workoutsLoading, on
           <ol className="mt-3 space-y-3">
             {exercise.instructions.map((instruction, index) => (
               <li key={`${index}-${instruction}`} className="flex gap-3 rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-3.5">
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-lime-400/10 text-xs font-semibold text-lime-300">{index + 1}</span>
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-soft)] text-xs font-semibold text-[var(--accent-hover)]">{index + 1}</span>
                 <span className="pt-0.5 text-sm leading-6 text-zinc-300">{instruction}</span>
               </li>
             ))}
           </ol>
         </div>
 
-        {feedback && <p role="status" className="mt-6 rounded-xl border border-lime-400/20 bg-lime-400/[0.06] px-4 py-3 text-sm text-lime-300">{feedback}</p>}
+        {feedback && <p role="status" className="mt-6 rounded-xl border border-[var(--accent-border)] bg-[var(--accent-soft)] px-4 py-3 text-sm text-[var(--accent-hover)]">{feedback}</p>}
 
-        <button type="button" onClick={() => { setFeedback(null); setPickerOpen(true) }} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-lime-400 px-5 text-sm font-semibold text-zinc-950 transition hover:bg-lime-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400">
+        <button type="button" onClick={() => { setFeedback(null); setPickerOpen(true) }} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-5 text-sm font-semibold text-[var(--accent-foreground)] transition hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]">
           <Icon name="plus" className="size-[18px]" />Adicionar ao treino
         </button>
 
